@@ -9,7 +9,7 @@ async function enhancedApiRequest<T = any>(
   context?: string
 ): Promise<T> {
   try {
-    const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001/api';
+    const API_URL = import.meta.env.VITE_API_URL || 'http://185.97.117.157:3000/api';
 
     const headers: HeadersInit = {
       'Content-Type': 'application/json',

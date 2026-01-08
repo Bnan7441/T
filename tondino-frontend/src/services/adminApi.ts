@@ -1,9 +1,9 @@
 // Admin API Service for Tondino Platform
 // Zero-Trust: httpOnly cookies only (no localStorage)
 
-const API_BASE_URL = window.location.hostname === 'localhost'
+const API_BASE_URL = import.meta.env.VITE_API_URL || (window.location.hostname === 'localhost'
   ? 'http://localhost:3001/api'
-  : `${window.location.protocol}//${window.location.host}/api`;
+  : `${window.location.protocol}//${window.location.host}/api`);
 
 const adminRequest = async (endpoint: string, options: RequestInit = {}) => {
   const headers: HeadersInit = {

@@ -4,7 +4,7 @@
  * Zero-Trust Architecture: Uses httpOnly cookies via withCredentials, no localStorage
  */
 
-const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:3001';
+const API_BASE = import.meta.env.VITE_API_URL?.replace('/api', '') || 'http://185.97.117.157:3000';
 
 interface ChatMessage {
   id?: number;
