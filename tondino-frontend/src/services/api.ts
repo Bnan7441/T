@@ -23,7 +23,7 @@ import type {
   PurchaseCourseResponse,
 } from '@/types/api.types';
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001/api';
+const API_URL = import.meta.env.VITE_API_URL || 'http://185.97.117.157:3000';
 
 // Helper function for API requests with httpOnly cookie support
 // Zero-Trust Architecture: No localStorage, only withCredentials for auth
