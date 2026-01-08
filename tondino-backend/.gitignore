@@ -1,0 +1,44 @@
+node_modules/
+.env
+.env.*.bak
+.env.bak.*
+dist/
+logs/
+coverage/
+*.log# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Backend runtime logs/pids
+backend.log
+backend_node.log
+backend.pid
+
+# Dev scripts folder (kept but not used in CI)
+scripts/dev/
+
+# Dependency directories
+node_modules/
+
+# Build output
+/dist/
+/build/
+
+# Environment variables
+.env
+.env.local
+
+# Coverage
+coverage/
+
+# OS
+.DS_Store

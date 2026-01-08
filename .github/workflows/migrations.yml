@@ -1,0 +1,36 @@
+name: Migrations
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+
+jobs:
+  apply-migrations:
+    runs-on: ubuntu-latest
+    name: Apply migrations (gated)
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Install deps
+        run: |
+          cd tondino-backend
+          npm ci
+
+      - name: Run migrations (ONLY when RUN_MIGRATIONS secret is true)
+        if: ${{ secrets.RUN_MIGRATIONS == 'true' }}
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+        run: |
+          cd tondino-backend
+          npm run migrate:up
+
+      - name: Skip migrations message
+        if: ${{ secrets.RUN_MIGRATIONS != 'true' }}
+        run: echo "RUN_MIGRATIONS not enabled — skipping migrations"

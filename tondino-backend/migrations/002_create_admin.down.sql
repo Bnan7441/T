@@ -1,0 +1,9 @@
+-- [REMOVED] 002_create_admin.down.sql
+-- The down migration for the admin insertion was removed to avoid storing
+-- sensitive admin-related SQL in the repository. The admin record was
+-- applied locally; if you need to remove the admin from a database run the
+-- following manually (replace the email as needed):
+--
+--   psql "$DATABASE_URL" -c "DELETE FROM users WHERE email = 'admin@local.tondino';"
+--
+-- Keep sensitive operations out of committed migration files.

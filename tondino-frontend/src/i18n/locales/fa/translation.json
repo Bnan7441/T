@@ -1,0 +1,88 @@
+{
+  "common": {
+    "welcome": "خوش آمدید",
+    "login": "ورود",
+    "register": "ثبت‌نام",
+    "logout": "خروج",
+    "profile": "پروفایل",
+    "dashboard": "داشبورد",
+    "courses": "دوره‌ها",
+    "blog": "بلاگ",
+    "club": "باشگاه",
+    "about": "درباره ما",
+    "search": "جستجو",
+    "loading": "در حال بارگذاری...",
+    "error": "خطا",
+    "success": "موفقیت",
+    "cancel": "لغو",
+    "save": "ذخیره",
+    "edit": "ویرایش",
+    "delete": "حذف",
+    "viewAll": "مشاهده همه",
+    "backTo": "بازگشت به",
+    "home": "خانه"
+  },
+  "auth": {
+    "loginTitle": "ورود به حساب کاربری",
+    "registerTitle": "ثبت‌نام",
+    "email": "ایمیل",
+    "password": "رمز عبور",
+    "forgotPassword": "فراموشی رمز عبور",
+    "noAccount": "حساب کاربری ندارید؟",
+    "hasAccount": "حساب کاربری دارید؟",
+    "continueWithGoogle": "ورود با گوگل"
+  },
+  "header": {
+    "home": "خانه",
+    "courses": "دوره‌ها",
+    "club": "باشگاه",
+    "blog": "بلاگ",
+    "about": "درباره ما",
+    "loginRegister": "ورود / ثبت‌نام"
+  },
+  "hero": {
+    "slide1Title": "یادگیری عمیق در عصر حواس‌پرتی",
+    "slide1Subtitle": "متد اختصاصی تندینو",
+    "slide1Cta": "شروع یادگیری",
+    "slide2Title": "ماراتن تندخوانی ۲۰۲۴",
+    "slide2Subtitle": "جایزه ۱۰ میلیون تومانی",
+    "slide2Cta": "شرکت در چالش",
+    "slide3Title": "دستیار هوشمند تندینو",
+    "slide3Subtitle": "قدرت گرفته از Gemini",
+    "slide3Cta": "شروع گفتگو",
+    "slide4Title": "باشگاه نخبگان تندینو",
+    "slide4Subtitle": "مزایای ویژه VIP",
+    "slide4Cta": "ورود به باشگاه"
+  },
+  "courses": {
+    "title": "دنیای یادگیری را کشف کنید",
+    "subtitle": "تخصصی‌ترین مرکز تندخوانی و تقویت حافظه",
+    "instructor": "مدرس",
+    "students": "دانشجو",
+    "duration": "مدت زمان",
+    "level": "سطح",
+    "certificate": "مدرک",
+    "purchase": "خرید دوره",
+    "startCourse": "شروع دوره",
+    "continueCourse": "ادامه دوره"
+  },
+  "dashboard": {
+    "welcomeBack": "{{name}} عزیز؛ خوش آمدید",
+    "todayBest": "امروز بهترین زمان برای یادگیری یک مهارت جدید و تقویت حافظه است!",
+    "points": "امتیاز کسب شده",
+    "completedCourses": "دوره‌های تکمیل شده",
+    "weeklyActivity": "فعالیت هفتگی",
+    "achievements": "افتخارات",
+    "continueLearning": "ادامه یادگیری",
+    "viewProfile": "مشاهده و ویرایش حساب کاربری"
+  },
+  "footer": {
+    "description": "تندینو پلتفرمی نوآورانه است که با ترکیب هوش مصنوعی، تندخوانی و آموزش استاندارد، تجربه‌ای شخصی‌سازی شده برای هر دانش‌آموز خلق می‌کند.",
+    "quickLinks": "لینک‌های کاربردی",
+    "organization": "بخش سازمانی",
+    "certificates": "تاییده‌های رسمی",
+    "allRightsReserved": "© ۱۴۰۳ تندینو - پلتفرم هوشمند آموزش و تندخوانی ایران. تمامی حقوق محفوظ است.",
+    "privacy": "حریم خصوصی",
+    "terms": "قوانین و مقررات"
+  }
+}

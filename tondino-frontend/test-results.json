@@ -1,0 +1,126 @@
+{
+  "timestamp": "2026-01-05T13:54:17.027Z",
+  "devices": {
+    "iphoneSE": {
+      "name": "iPhone SE",
+      "pages": {
+        "Home": {
+          "url": "http://localhost:5173/",
+          "error": "net::ERR_CONNECTION_REFUSED at http://localhost:5173/",
+          "status": "ERROR"
+        },
+        "Courses": {
+          "url": "http://localhost:5173/courses",
+          "error": "net::ERR_CONNECTION_REFUSED at http://localhost:5173/courses",
+          "status": "ERROR"
+        },
+        "Club": {
+          "url": "http://localhost:5173/club",
+          "error": "net::ERR_CONNECTION_REFUSED at http://localhost:5173/club",
+          "status": "ERROR"
+        },
+        "About": {
+          "url": "http://localhost:5173/about",
+          "error": "net::ERR_CONNECTION_REFUSED at http://localhost:5173/about",
+          "status": "ERROR"
+        },
+        "Blog": {
+          "url": "http://localhost:5173/blog",
+          "error": "net::ERR_CONNECTION_REFUSED at http://localhost:5173/blog",
+          "status": "ERROR"
+        }
+      }
+    },
+    "ipad": {
+      "name": "iPad",
+      "pages": {
+        "Home": {
+          "url": "http://localhost:5173/",
+          "error": "net::ERR_CONNECTION_REFUSED at http://localhost:5173/",
+          "status": "ERROR"
+        },
+        "Courses": {
+          "url": "http://localhost:5173/courses",
+          "error": "net::ERR_CONNECTION_REFUSED at http://localhost:5173/courses",
+          "status": "ERROR"
+        },
+        "Club": {
+          "url": "http://localhost:5173/club",
+          "error": "net::ERR_CONNECTION_REFUSED at http://localhost:5173/club",
+          "status": "ERROR"
+        },
+        "About": {
+          "url": "http://localhost:5173/about",
+          "error": "net::ERR_CONNECTION_REFUSED at http://localhost:5173/about",
+          "status": "ERROR"
+        },
+        "Blog": {
+          "url": "http://localhost:5173/blog",
+          "error": "net::ERR_CONNECTION_REFUSED at http://localhost:5173/blog",
+          "status": "ERROR"
+        }
+      }
+    },
+    "laptop": {
+      "name": "Standard Laptop",
+      "pages": {
+        "Home": {
+          "url": "http://localhost:5173/",
+          "error": "net::ERR_CONNECTION_REFUSED at http://localhost:5173/",
+          "status": "ERROR"
+        },
+        "Courses": {
+          "url": "http://localhost:5173/courses",
+          "error": "net::ERR_CONNECTION_REFUSED at http://localhost:5173/courses",
+          "status": "ERROR"
+        },
+        "Club": {
+          "url": "http://localhost:5173/club",
+          "error": "net::ERR_CONNECTION_REFUSED at http://localhost:5173/club",
+          "status": "ERROR"
+        },
+        "About": {
+          "url": "http://localhost:5173/about",
+          "error": "net::ERR_CONNECTION_REFUSED at http://localhost:5173/about",
+          "status": "ERROR"
+        },
+        "Blog": {
+          "url": "http://localhost:5173/blog",
+          "error": "net::ERR_CONNECTION_REFUSED at http://localhost:5173/blog",
+          "status": "ERROR"
+        }
+      }
+    },
+    "desktop": {
+      "name": "Large Desktop",
+      "pages": {
+        "Home": {
+          "url": "http://localhost:5173/",
+          "error": "net::ERR_CONNECTION_REFUSED at http://localhost:5173/",
+          "status": "ERROR"
+        },
+        "Courses": {
+          "url": "http://localhost:5173/courses",
+          "error": "net::ERR_CONNECTION_REFUSED at http://localhost:5173/courses",
+          "status": "ERROR"
+        },
+        "Club": {
+          "url": "http://localhost:5173/club",
+          "error": "net::ERR_CONNECTION_REFUSED at http://localhost:5173/club",
+          "status": "ERROR"
+        },
+        "About": {
+          "url": "http://localhost:5173/about",
+          "error": "net::ERR_CONNECTION_REFUSED at http://localhost:5173/about",
+          "status": "ERROR"
+        },
+        "Blog": {
+          "url": "http://localhost:5173/blog",
+          "error": "net::ERR_CONNECTION_REFUSED at http://localhost:5173/blog",
+          "status": "ERROR"
+        }
+      }
+    }
+  },
+  "issues": []
+}

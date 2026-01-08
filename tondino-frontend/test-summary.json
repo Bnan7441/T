@@ -1,0 +1,28 @@
+{
+  "totalTests": 20,
+  "passedTests": 0,
+  "failedTests": 20,
+  "totalIssues": 0,
+  "deviceSummary": {
+    "iPhone SE": {
+      "tests": 5,
+      "passes": 0,
+      "issues": 0
+    },
+    "iPad": {
+      "tests": 5,
+      "passes": 0,
+      "issues": 0
+    },
+    "Standard Laptop": {
+      "tests": 5,
+      "passes": 0,
+      "issues": 0
+    },
+    "Large Desktop": {
+      "tests": 5,
+      "passes": 0,
+      "issues": 0
+    }
+  }
+}

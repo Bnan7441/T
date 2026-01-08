@@ -1,0 +1,88 @@
+{
+  "common": {
+    "welcome": "Welcome",
+    "login": "Login",
+    "register": "Register",
+    "logout": "Logout",
+    "profile": "Profile",
+    "dashboard": "Dashboard",
+    "courses": "Courses",
+    "blog": "Blog",
+    "club": "Club",
+    "about": "About Us",
+    "search": "Search",
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "cancel": "Cancel",
+    "save": "Save",
+    "edit": "Edit",
+    "delete": "Delete",
+    "viewAll": "View All",
+    "backTo": "Back to",
+    "home": "Home"
+  },
+  "auth": {
+    "loginTitle": "Login to Your Account",
+    "registerTitle": "Register",
+    "email": "Email",
+    "password": "Password",
+    "forgotPassword": "Forgot Password",
+    "noAccount": "Don't have an account?",
+    "hasAccount": "Already have an account?",
+    "continueWithGoogle": "Continue with Google"
+  },
+  "header": {
+    "home": "Home",
+    "courses": "Courses",
+    "club": "Club",
+    "blog": "Blog",
+    "about": "About Us",
+    "loginRegister": "Login / Register"
+  },
+  "hero": {
+    "slide1Title": "Deep Learning in the Age of Distraction",
+    "slide1Subtitle": "Exclusive Tondino Method",
+    "slide1Cta": "Start Learning",
+    "slide2Title": "Speed Reading Marathon 2024",
+    "slide2Subtitle": "10 Million Prize",
+    "slide2Cta": "Join Challenge",
+    "slide3Title": "Tondino AI Assistant",
+    "slide3Subtitle": "Powered by Gemini",
+    "slide3Cta": "Start Chat",
+    "slide4Title": "Tondino Elite Club",
+    "slide4Subtitle": "VIP Benefits",
+    "slide4Cta": "Join Club"
+  },
+  "courses": {
+    "title": "Discover the World of Learning",
+    "subtitle": "The Most Specialized Speed Reading and Memory Enhancement Center",
+    "instructor": "Instructor",
+    "students": "Students",
+    "duration": "Duration",
+    "level": "Level",
+    "certificate": "Certificate",
+    "purchase": "Purchase Course",
+    "startCourse": "Start Course",
+    "continueCourse": "Continue Course"
+  },
+  "dashboard": {
+    "welcomeBack": "Welcome Back, {{name}}",
+    "todayBest": "Today is the best time to learn a new skill and strengthen your memory!",
+    "points": "Points Earned",
+    "completedCourses": "Completed Courses",
+    "weeklyActivity": "Weekly Activity",
+    "achievements": "Achievements",
+    "continueLearning": "Continue Learning",
+    "viewProfile": "View and Edit Profile"
+  },
+  "footer": {
+    "description": "Tondino is an innovative platform that combines AI, speed reading, and standard education to create a personalized experience for every student.",
+    "quickLinks": "Quick Links",
+    "organization": "Organization",
+    "certificates": "Certifications",
+    "allRightsReserved": "© 2024 Tondino - Smart Learning and Speed Reading Platform. All Rights Reserved.",
+    "privacy": "Privacy Policy",
+    "terms": "Terms & Conditions"
+  }
+}

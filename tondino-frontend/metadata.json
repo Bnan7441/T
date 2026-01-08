@@ -1,0 +1,7 @@
+{
+  "name": "Tondino Web App",
+  "description": "A modular, high-performance educational platform featuring AI-driven tutoring, gamified learning paths, and interactive course catalogs, specializing in speed reading and smart learning.",
+  "requestFramePermissions": [
+    "microphone"
+  ]
+}

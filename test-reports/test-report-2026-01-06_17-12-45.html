@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tondino Test Report</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .header { background: #f4f4f4; padding: 20px; border-radius: 5px; }
+        .section { margin: 20px 0; padding: 15px; border: 1px solid #ddd; border-radius: 5px; }
+        .success { background: #d4edda; border-color: #c3e6cb; }
+        .failure { background: #f8d7da; border-color: #f5c6cb; }
+        .warning { background: #fff3cd; border-color: #ffeaa7; }
+        .code { background: #f8f9fa; padding: 10px; border-radius: 3px; font-family: monospace; }
+        .metric { display: inline-block; margin: 10px; padding: 10px; background: #e9ecef; border-radius: 3px; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { padding: 8px; text-align: left; border-bottom: 1px solid #ddd; }
+        th { background-color: #f2f2f2; }
+        .status-pass { color: #28a745; font-weight: bold; }
+        .status-fail { color: #dc3545; font-weight: bold; }
+        .status-skip { color: #6c757d; }
+    </style>
+</head>
+<body>
+<div class="header">
+    <h1>🧪 Tondino Test Report</h1>
+    <p><strong>Generated:</strong> Tue Jan  6 17:12:45 +0330 2026</p>
+    <p><strong>Branch:</strong> refactor/contexts-split</p>
+    <p><strong>Commit:</strong> 2be3cd8</p>
+    <p><strong>Environment:</strong> development</p>
+</div>
+<div class="section success">
+    <h2>Project Structure</h2>
+    
+<table>
+<tr><th>Component</th><th>Status</th><th>Path</th></tr>
+<tr><td>Backend</td><td class='status-pass'>✓ Found</td><td>tondino-backend/</td></tr>
+<tr><td>Frontend</td><td class='status-pass'>✓ Found</td><td>tondino-frontend/</td></tr>
+<tr><td>CI Pipeline</td><td class='status-pass'>✓ Found</td><td>.github/workflows/ci-cd.yml</td></tr>
+<tr><td>Migrations</td><td class='status-pass'>✓ Found</td><td>tondino-backend/migrations/</td></tr>
+<tr><td>Tests</td><td class='status-pass'>✓ Found</td><td>Backend + Frontend test directories</td></tr>
+</table>
+
+</div>

@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+
+  <!-- Mobile Viewport -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, minimum-scale=1.0, viewport-fit=cover">
+
+  <!-- Primary Meta Tags -->
+  <title>تندینو - یادگیری و تندخوانی هوشمند</title>
+  <meta name="title" content="تندینو - یادگیری و تندخوانی هوشمند">
+  <meta name="description" content="پلتفرم آموزش تندخوانی، تقویت حافظه و مهارت‌های مطالعه با روش‌های علمی و کاربردی">
+  <meta name="keywords" content="تندخوانی, حافظه, تمرکز, یادگیری سریع, مهارت مطالعه">
+  <meta name="author" content="تندینو">
+
+  <!-- Theme Color -->
+  <meta name="theme-color" content="#184277">
+  <meta name="msapplication-TileColor" content="#184277">
+  <meta name="msapplication-navbutton-color" content="#184277">
+
+  <!-- Font Preloading removed to avoid unused warnings -->
+  
+  <!-- iOS Meta Tags -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="تندینو">
+  <link rel="apple-touch-icon" href="/icons/icon-180x180.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/icons/icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/icons/icon-180x180.png">
+  <link rel="apple-touch-icon" sizes="167x167" href="/icons/icon-167x167.png">
+
+  <!-- iOS Splash Screens -->
+  <link rel="apple-touch-startup-image" href="/splash/iphone5_splash.png" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)">
+  <link rel="apple-touch-startup-image" href="/splash/iphone6_splash.png" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)">
+  <link rel="apple-touch-startup-image" href="/splash/iphoneplus_splash.png" media="(device-width: 621px) and (device-height: 1104px) and (-webkit-device-pixel-ratio: 3)">
+  <link rel="apple-touch-startup-image" href="/splash/iphonex_splash.png" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)">
+  <link rel="apple-touch-startup-image" href="/splash/iphonexr_splash.png" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2)">
+  <link rel="apple-touch-startup-image" href="/splash/iphonexsmax_splash.png" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3)">
+  <link rel="apple-touch-startup-image" href="/splash/ipad_splash.png" media="(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2)">
+  <link rel="apple-touch-startup-image" href="/splash/ipadpro1_splash.png" media="(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2)">
+  <link rel="apple-touch-startup-image" href="/splash/ipadpro3_splash.png" media="(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2)">
+  <link rel="apple-touch-startup-image" href="/splash/ipadpro2_splash.png" media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2)">
+
+  <!-- Android/Chrome -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <link rel="manifest" href="/manifest.json">
+  <link rel="icon" type="image/png" sizes="192x192" href="/icons/icon-192x192.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="/icons/icon-512x512.png">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="shortcut icon" href="/favicon.ico">
+
+  <!-- Prevent Zoom on Input Focus (iOS) -->
+  <meta name="format-detection" content="telephone=no">
+  <!-- Font Awesome removed for production; use lucide-react/Icon component instead -->
+  <style>
+    body {
+      color: #1e293b;
+      line-height: 1.8;
+      overflow-x: hidden;
+    }
+
+    .dark body { background-color: #020617; color: #f1f5f9; }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { 
+      background: #e2e8f0; 
+      border-radius: 10px;
+    }
+    .dark ::-webkit-scrollbar-thumb { background: #1e293b; }
+    ::-webkit-scrollbar-thumb:hover { background: #cbd5e1; }
+
+    .glass-card {
+      background: rgba(255, 255, 255, 0.6);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+    }
+
+    .dark .glass-card {
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .text-gradient {
+      background: linear-gradient(135deg, #184277 0%, #397c7c 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .dark .text-gradient {
+      background: linear-gradient(135deg, #f1f5f9 0%, #397c7c 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    /* Immersive Grid */
+    .bg-grid {
+      background-size: 40px 40px;
+      background-image: radial-gradient(circle, #e2e8f0 1px, transparent 1px);
+    }
+    .dark .bg-grid {
+      background-image: radial-gradient(circle, #1e293b 1px, transparent 1px);
+    }
+
+    /* Mobile-specific optimizations */
+
+    /* iOS Safari 100vh fix */
+    @supports (-webkit-touch-callout: none) {
+      .min-h-screen {
+        min-height: -webkit-fill-available;
+      }
+    }
+
+    /* Prevent iOS text size adjustment */
+    html {
+      -webkit-text-size-adjust: 100%;
+      -moz-text-size-adjust: 100%;
+      -ms-text-size-adjust: 100%;
+    }
+
+    /* Disable iOS callouts and copy/paste on long press */
+    * {
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      user-select: none;
+    }
+
+    /* Allow text selection for inputs and content areas */
+    input, textarea, [contenteditable] {
+      -webkit-user-select: text;
+      user-select: text;
+    }
+
+    /* Smooth touch scrolling for iOS */
+    * {
+      -webkit-overflow-scrolling: touch;
+    }
+
+    /* Remove tap highlight on mobile */
+    * {
+      -webkit-tap-highlight-color: transparent;
+      tap-highlight-color: transparent;
+    }
+
+    /* Better touch targets (min 44x44px for iOS/Android) */
+    button, a, input, select, textarea {
+      min-height: 44px;
+      min-width: 44px;
+    }
+
+    /* Prevent zoom on input focus (iOS) */
+    input, select, textarea {
+      font-size: 16px !important;
+    }
+
+    /* Safe area insets for notched devices */
+    body {
+      padding-top: env(safe-area-inset-top);
+      padding-bottom: env(safe-area-inset-bottom);
+      padding-left: env(safe-area-inset-left);
+      padding-right: env(safe-area-inset-right);
+    }
+
+    /* Disable pull-to-refresh on Chrome Android */
+    body {
+      overscroll-behavior-y: contain;
+    }
+
+    /* No scrollbar utility */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  </style>
+
+  <!-- Google Sign-In: loaded on demand in Auth flow -->
+  <link rel="stylesheet" href="./src/index.css">
+</head>
+<body class="selection:bg-brand-accent/20">
+  <div id="root"></div>
+<script type="module" src="/src/index.tsx"></script>
+
+<!-- Install prompt for PWA (handled in app when appropriate) -->
+<script>
+  // iOS-specific touch handling
+  document.addEventListener('touchstart', function() {}, {passive: true});
+</script>
+</body>
+</html>

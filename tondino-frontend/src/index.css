@@ -1,0 +1,124 @@
+/* Self-hosted Vazirmatn fonts - Privacy-first, GDPR compliant */
+@font-face {
+  font-family: 'Vazirmatn';
+  font-style: normal;
+  font-weight: 100;
+  font-display: swap;
+  src: url('/fonts/Vazirmatn-Thin.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Vazirmatn';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url('/fonts/Vazirmatn-Light.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Vazirmatn';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/Vazirmatn-Regular.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Vazirmatn';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('/fonts/Vazirmatn-Medium.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Vazirmatn';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('/fonts/Vazirmatn-SemiBold.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Vazirmatn';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('/fonts/Vazirmatn-Bold.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Vazirmatn';
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url('/fonts/Vazirmatn-ExtraBold.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Vazirmatn';
+  font-style: normal;
+  font-weight: 900;
+  font-display: swap;
+  src: url('/fonts/Vazirmatn-Black.woff2') format('woff2');
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Semantic Component Classes - Zen Principle: Reuse over Repeat */
+@layer components {
+  .nav-link {
+    @apply text-gray-700 dark:text-gray-300 
+           hover:text-brand-primary dark:hover:text-white 
+           font-bold transition-colors;
+  }
+
+  .card-base {
+    @apply rounded-base shadow-premium bg-white 
+           dark:bg-slate-800 border border-white/20 
+           dark:border-white/5;
+  }
+
+  .card-interactive {
+    @apply card-base cursor-pointer 
+           hover:shadow-card-hover 
+           active:scale-95 transition-all;
+  }
+
+  .btn-base {
+    @apply inline-flex items-center justify-center 
+           font-black transition-all duration-300 
+           active:scale-95 focus:outline-none focus:ring-4 
+           disabled:opacity-50 disabled:cursor-not-allowed 
+           select-none min-h-[44px] min-w-[44px];
+  }
+
+  .btn-primary {
+    @apply btn-base bg-brand-accent text-white 
+           hover:bg-brand-accentDark 
+           focus:ring-brand-accent/20 
+           shadow-premium;
+  }
+
+  .section-spacing {
+    @apply space-y-8 sm:space-y-12 lg:space-y-16;
+  }
+}
+
+body {
+  font-family: 'Vazirmatn', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background-color: #ffffff;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Smooth scrolling for better UX */
+html {
+  scroll-behavior: smooth;
+}

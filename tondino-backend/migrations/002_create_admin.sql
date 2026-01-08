@@ -1,0 +1,13 @@
+-- [REMOVED] 002_create_admin.sql
+-- This migration previously inserted a generated admin user with a plaintext
+-- password. The sensitive credentials have been removed from the repository.
+-- The migration was applied locally during setup; the database contains the
+-- admin record. Do NOT reintroduce plaintext secrets into migration files.
+-- Recommended approaches to create an admin safely:
+--  - Use `ADMIN_EMAIL`/`ADMIN_PASSWORD` environment variables and let
+--    `ensureAdminUser()` bootstrap the admin at runtime (credentials kept
+--    out of source control), OR
+--  - Run an external, out-of-repo script that updates the password hash
+--    using `pgcrypto` and stores the secret in a secure vault/password manager.
+
+-- This placeholder preserves migration filename history while removing secrets.

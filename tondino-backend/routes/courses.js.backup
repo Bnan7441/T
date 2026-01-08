@@ -1,0 +1,173 @@
+const express = require("express");
+const pool = require("../config/database");
+const authMiddleware = require("../middleware/auth");
+
+const router = express.Router();
+
+
+// Get all public courses (no auth required)
+router.get("/", async (req, res) => {
+  try {
+    const result = await pool.query(
+      `SELECT c.*, cat.name as category_name, cat.icon as category_icon, cat.color as category_color
+       FROM courses c
+       LEFT JOIN categories cat ON c.category_id = cat.id
+       WHERE c.is_active = true
+       ORDER BY c.created_at DESC`
+    );
+    res.json({ courses: result.rows });
+  } catch (error) {
+    console.error("Get public courses error:", error);
+    res.status(500).json({ error: "Server error" });
+  }
+});
+
+// Get user purchased courses
+router.get("/my-courses", authMiddleware, async (req, res) => {
+  try {
+    const result = await pool.query(
+      `SELECT c.course_id, c.title, c.description, uc.purchased_at
+       FROM user_courses uc
+       JOIN courses c ON uc.course_id = c.id
+       WHERE uc.user_id = $1
+       ORDER BY uc.purchased_at DESC`,
+      [req.userId]
+    );
+
+    res.json({ courses: result.rows });
+  } catch (error) {
+    console.error("Get my courses error:", error);
+    res.status(500).json({ error: "Server error" });
+  }
+});
+
+// Check if user has access to a specific course
+router.get("/access/:courseId", authMiddleware, async (req, res) => {
+  try {
+    const { courseId } = req.params;
+
+    // Check if course is free
+    const courseResult = await pool.query(
+      "SELECT id, is_free FROM courses WHERE course_id = $1 AND is_active = true",
+      [courseId]
+    );
+
+    if (courseResult.rows.length === 0) {
+      return res.status(404).json({ error: "Course not found" });
+    }
+
+    const course = courseResult.rows[0];
+
+    if (course.is_free) {
+      return res.json({ hasAccess: true, reason: "free" });
+    }
+
+    // Check if user purchased the course
+    const purchaseResult = await pool.query(
+      "SELECT id FROM user_courses WHERE user_id = $1 AND course_id = $2",
+      [req.userId, course.id]
+    );
+
+    if (purchaseResult.rows.length > 0) {
+      return res.json({ hasAccess: true, reason: "purchased" });
+    }
+
+    res.json({ hasAccess: false });
+  } catch (error) {
+    console.error("Check access error:", error);
+    res.status(500).json({ error: "Server error" });
+  }
+});
+
+// Purchase a course (simplified - integrate with payment gateway)
+router.post("/purchase/:courseId", authMiddleware, async (req, res) => {
+  try {
+    const { courseId } = req.params;
+
+    // Get course
+    const courseResult = await pool.query(
+      "SELECT id, title, price FROM courses WHERE course_id = $1 AND is_active = true",
+      [courseId]
+    );
+
+    if (courseResult.rows.length === 0) {
+      return res.status(404).json({ error: "Course not found" });
+    }
+
+    const course = courseResult.rows[0];
+
+    // Check if already purchased
+    const existingPurchase = await pool.query(
+      "SELECT id FROM user_courses WHERE user_id = $1 AND course_id = $2",
+      [req.userId, course.id]
+    );
+
+    if (existingPurchase.rows.length > 0) {
+      return res.status(400).json({ error: "Course already purchased" });
+    }
+
+    // TODO: Integrate payment gateway here (ZarinPal, etc.)
+    // For now, just add to user_courses
+
+    await pool.query(
+      "INSERT INTO user_courses (user_id, course_id, payment_amount, payment_status) VALUES ($1, $2, $3, $4)",
+      [req.userId, course.id, course.price, "completed"]
+    );
+
+    res.json({
+      message: "Course purchased successfully",
+      course: { id: courseId, title: course.title }
+    });
+  } catch (error) {
+    console.error("Purchase error:", error);
+    res.status(500).json({ error: "Server error" });
+  }
+});
+
+// Get user stats
+router.get("/stats", authMiddleware, async (req, res) => {
+  try {
+    const result = await pool.query(
+      "SELECT * FROM user_stats WHERE user_id = $1",
+      [req.userId]
+    );
+
+    if (result.rows.length === 0) {
+      // Create stats if don't exist
+      await pool.query("INSERT INTO user_stats (user_id) VALUES ($1)", [req.userId]);
+      return res.json({ stats: { top_speed: 0, points: 0, reading_minutes: 0, courses_completed: 0, current_streak: 0 } });
+    }
+
+    res.json({ stats: result.rows[0] });
+  } catch (error) {
+    console.error("Get stats error:", error);
+    res.status(500).json({ error: "Server error" });
+  }
+});
+
+// Update user stats
+router.put("/stats", authMiddleware, async (req, res) => {
+  try {
+    const { top_speed, points, reading_minutes, courses_completed, current_streak } = req.body;
+
+    const result = await pool.query(
+      `UPDATE user_stats
+       SET top_speed = COALESCE($1, top_speed),
+           points = COALESCE($2, points),
+           reading_minutes = COALESCE($3, reading_minutes),
+           courses_completed = COALESCE($4, courses_completed),
+           current_streak = COALESCE($5, current_streak),
+           updated_at = CURRENT_TIMESTAMP
+       WHERE user_id = $6
+       RETURNING *`,
+      [top_speed, points, reading_minutes, courses_completed, current_streak, req.userId]
+    );
+
+    res.json({ stats: result.rows[0] });
+  } catch (error) {
+    console.error("Update stats error:", error);
+    res.status(500).json({ error: "Server error" });
+  }
+});
+
+module.exports = router;

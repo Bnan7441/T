@@ -1,0 +1,13 @@
+{
+  "name": "tondino-repo",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "scan:secrets": "bash ./scripts/scan-secrets.sh",
+    "test:report": "bash ./scripts/working-test-report.sh",
+    "test:all": "cd tondino-backend && npm test && cd ../tondino-frontend && npm run test:ci",
+    "build:all": "cd tondino-backend && npm run build && cd ../tondino-frontend && npm run build",
+    "dev:setup": "echo 'Setting up development environment...' && cd tondino-backend && npm install && cd ../tondino-frontend && npm install",
+    "ci:full": "npm run scan:secrets && npm run build:all && npm run test:all && npm run test:report"
+  }
+}

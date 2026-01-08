@@ -1,0 +1,21 @@
+name: Migration lint
+
+on:
+  push:
+    paths:
+      - 'tondino-backend/migrations/**'
+      - '.github/scripts/**'
+  pull_request:
+    paths:
+      - 'tondino-backend/migrations/**'
+      - '.github/scripts/**'
+
+jobs:
+  migration-lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run migration secrets lint
+        run: |
+          chmod +x .github/scripts/check-migrations-no-secrets.sh
+          .github/scripts/check-migrations-no-secrets.sh

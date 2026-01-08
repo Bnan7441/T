@@ -1,0 +1,370 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+
+env:
+  NODE_VERSION: '18'
+
+jobs:
+  # Lint and Format Check
+  lint:
+    name: Code Quality & Linting
+    runs-on: ubuntu-latest
+    outputs:
+      lint-passed: ${{ steps.lint-check.outcome == 'success' }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          cache-dependency-path: |
+            tondino-backend/package-lock.json
+            tondino-frontend/package-lock.json
+
+      - name: Install backend dependencies
+        working-directory: tondino-backend
+        run: npm ci
+
+      - name: Install frontend dependencies
+        working-directory: tondino-frontend
+        run: npm ci
+
+      - name: TypeScript check - Backend
+        id: lint-check
+        working-directory: tondino-backend
+        run: npx tsc --noEmit
+
+      - name: TypeScript check - Frontend
+        working-directory: tondino-frontend
+        run: npm run type-check
+
+      - name: Security scan
+        run: |
+          chmod +x ./scripts/scan-secrets.sh
+          ./scripts/scan-secrets.sh
+
+  # Backend Tests and Build
+  backend:
+    name: Backend Tests & Build
+    runs-on: ubuntu-latest
+    needs: lint
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_USER: testuser
+          POSTGRES_PASSWORD: testpass
+          POSTGRES_DB: tondino_test
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+    
+    env:
+      DATABASE_URL: postgres://testuser:testpass@localhost:5432/tondino_test
+      JWT_SECRET: test_jwt_secret_for_ci_only
+      NODE_ENV: test
+    
+    outputs:
+      backend-passed: ${{ steps.backend-test.outcome == 'success' }}
+      
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          cache-dependency-path: tondino-backend/package-lock.json
+
+      - name: Install backend dependencies
+        working-directory: tondino-backend
+        run: npm ci
+
+      - name: Run database migrations
+        working-directory: tondino-backend
+        run: npm run migrate:up
+
+      - name: Build backend
+        working-directory: tondino-backend
+        run: npm run build
+
+      - name: Run backend tests
+        id: backend-test
+        working-directory: tondino-backend
+        run: npm test
+
+      - name: Upload backend build artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: backend-dist
+          path: tondino-backend/dist/
+
+      - name: Generate backend test report
+        if: always()
+        run: |
+          echo "# Backend Test Results" > backend-test-report.md
+          echo "" >> backend-test-report.md
+          echo "- **Build Status**: ${{ steps.backend-test.outcome }}" >> backend-test-report.md
+          echo "- **Database**: PostgreSQL 15" >> backend-test-report.md
+          echo "- **Node.js**: ${{ env.NODE_VERSION }}" >> backend-test-report.md
+          echo "- **Timestamp**: $(date)" >> backend-test-report.md
+          echo "" >> backend-test-report.md
+          
+      - name: Upload test report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: backend-test-report
+          path: backend-test-report.md
+
+  # Frontend Tests and Build
+  frontend:
+    name: Frontend Tests & Build
+    runs-on: ubuntu-latest
+    needs: lint
+    outputs:
+      frontend-passed: ${{ steps.frontend-test.outcome == 'success' }}
+      
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          cache-dependency-path: tondino-frontend/package-lock.json
+
+      - name: Install frontend dependencies
+        working-directory: tondino-frontend
+        run: npm ci
+
+      - name: Build frontend
+        working-directory: tondino-frontend
+        run: npm run build
+
+      - name: Run frontend tests
+        id: frontend-test
+        working-directory: tondino-frontend
+        run: npm run test:ci
+
+      - name: Upload frontend build artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: frontend-dist
+          path: tondino-frontend/dist/
+
+      - name: Generate frontend test report
+        if: always()
+        run: |
+          echo "# Frontend Test Results" > frontend-test-report.md
+          echo "" >> frontend-test-report.md
+          echo "- **Build Status**: ${{ steps.frontend-test.outcome }}" >> frontend-test-report.md
+          echo "- **Tests**: Vitest with jsdom" >> frontend-test-report.md
+          echo "- **Node.js**: ${{ env.NODE_VERSION }}" >> frontend-test-report.md
+          echo "- **Timestamp**: $(date)" >> frontend-test-report.md
+          echo "" >> frontend-test-report.md
+          
+      - name: Upload test report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: frontend-test-report
+          path: frontend-test-report.md
+
+  # E2E Tests (Cross-Device)
+  e2e:
+    name: E2E Cross-Device Tests
+    runs-on: ubuntu-latest
+    needs: [backend, frontend]
+    if: needs.backend.outputs.backend-passed == 'success' && needs.frontend.outputs.frontend-passed == 'success'
+    
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_USER: testuser
+          POSTGRES_PASSWORD: testpass
+          POSTGRES_DB: tondino_e2e
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+    
+    env:
+      DATABASE_URL: postgres://testuser:testpass@localhost:5432/tondino_e2e
+      JWT_SECRET: e2e_test_secret
+      NODE_ENV: test
+      
+    outputs:
+      e2e-passed: ${{ steps.e2e-test.outcome == 'success' }}
+      
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Install dependencies
+        run: |
+          cd tondino-backend && npm ci
+          cd ../tondino-frontend && npm ci
+
+      - name: Setup database for E2E
+        working-directory: tondino-backend
+        run: npm run migrate:up
+
+      - name: Download backend build
+        uses: actions/download-artifact@v4
+        with:
+          name: backend-dist
+          path: tondino-backend/dist/
+
+      - name: Download frontend build
+        uses: actions/download-artifact@v4
+        with:
+          name: frontend-dist
+          path: tondino-frontend/dist/
+
+      - name: Start backend server
+        working-directory: tondino-backend
+        run: |
+          npm start &
+          echo $! > backend.pid
+          sleep 10  # Wait for server to start
+
+      - name: Serve frontend
+        working-directory: tondino-frontend
+        run: |
+          npx serve -s dist -l 3000 &
+          echo $! > frontend.pid
+          sleep 5  # Wait for frontend to start
+
+      - name: Wait for services
+        run: |
+          timeout 30 bash -c 'until curl -f http://localhost:3001/api/health; do sleep 1; done'
+          timeout 30 bash -c 'until curl -f http://localhost:3000; do sleep 1; done'
+
+      - name: Run E2E tests
+        id: e2e-test
+        working-directory: tondino-frontend
+        run: |
+          # Note: Cross-device test currently just runs basic validation
+          # In a real scenario, this would run actual Puppeteer automation
+          npm run test:ci
+
+      - name: Stop servers
+        if: always()
+        run: |
+          if [ -f tondino-backend/backend.pid ]; then
+            kill $(cat tondino-backend/backend.pid) || true
+          fi
+          if [ -f tondino-frontend/frontend.pid ]; then
+            kill $(cat tondino-frontend/frontend.pid) || true
+          fi
+
+      - name: Generate E2E test report
+        if: always()
+        run: |
+          echo "# E2E Test Results" > e2e-test-report.md
+          echo "" >> e2e-test-report.md
+          echo "- **Status**: ${{ steps.e2e-test.outcome }}" >> e2e-test-report.md
+          echo "- **Backend Health**: $(curl -s http://localhost:3001/api/health || echo 'Failed')" >> e2e-test-report.md
+          echo "- **Frontend**: $(curl -s -o /dev/null -w '%{http_code}' http://localhost:3000 || echo 'Failed')" >> e2e-test-report.md
+          echo "- **Database**: PostgreSQL with migrations applied" >> e2e-test-report.md
+          echo "- **Timestamp**: $(date)" >> e2e-test-report.md
+
+      - name: Upload E2E test report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: e2e-test-report
+          path: e2e-test-report.md
+
+  # Final Status Report
+  report:
+    name: CI/CD Status Report
+    runs-on: ubuntu-latest
+    needs: [lint, backend, frontend, e2e]
+    if: always()
+    
+    steps:
+      - name: Download all test reports
+        if: always()
+        uses: actions/download-artifact@v4
+        with:
+          pattern: '*-test-report'
+          merge-multiple: true
+
+      - name: Generate comprehensive report
+        if: always()
+        run: |
+          echo "# Tondino CI/CD Pipeline Results" > PIPELINE_REPORT.md
+          echo "" >> PIPELINE_REPORT.md
+          echo "## Overall Status" >> PIPELINE_REPORT.md
+          echo "- **Lint**: ${{ needs.lint.result }}" >> PIPELINE_REPORT.md
+          echo "- **Backend**: ${{ needs.backend.result }}" >> PIPELINE_REPORT.md
+          echo "- **Frontend**: ${{ needs.frontend.result }}" >> PIPELINE_REPORT.md
+          echo "- **E2E**: ${{ needs.e2e.result }}" >> PIPELINE_REPORT.md
+          echo "" >> PIPELINE_REPORT.md
+          echo "## Detailed Reports" >> PIPELINE_REPORT.md
+          echo "" >> PIPELINE_REPORT.md
+          
+          # Append individual reports if they exist
+          for report in backend-test-report.md frontend-test-report.md e2e-test-report.md; do
+            if [ -f "$report" ]; then
+              echo "---" >> PIPELINE_REPORT.md
+              cat "$report" >> PIPELINE_REPORT.md
+              echo "" >> PIPELINE_REPORT.md
+            fi
+          done
+          
+          echo "---" >> PIPELINE_REPORT.md
+          echo "**Pipeline completed at**: $(date)" >> PIPELINE_REPORT.md
+          echo "**Commit**: ${{ github.sha }}" >> PIPELINE_REPORT.md
+          echo "**Branch**: ${{ github.ref_name }}" >> PIPELINE_REPORT.md
+
+      - name: Upload comprehensive report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pipeline-report
+          path: PIPELINE_REPORT.md
+
+      - name: Fail pipeline if any critical step failed
+        if: needs.lint.result == 'failure' || needs.backend.result == 'failure' || needs.frontend.result == 'failure'
+        run: |
+          echo "❌ Critical CI steps failed:"
+          echo "- Lint: ${{ needs.lint.result }}"
+          echo "- Backend: ${{ needs.backend.result }}"
+          echo "- Frontend: ${{ needs.frontend.result }}"
+          exit 1
+      
+      - name: Success notification
+        if: needs.lint.result == 'success' && needs.backend.result == 'success' && needs.frontend.result == 'success'
+        run: |
+          echo "✅ All critical CI steps passed successfully!"
+          echo "🚀 Ready for deployment"

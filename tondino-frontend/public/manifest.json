@@ -1,0 +1,89 @@
+{
+  "name": "تندینو - یادگیری و تندخوانی هوشمند",
+  "short_name": "تندینو",
+  "description": "پلتفرم آموزش تندخوانی، تقویت حافظه و مهارت‌های مطالعه",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#184277",
+  "theme_color": "#184277",
+  "orientation": "portrait-primary",
+  "dir": "rtl",
+  "lang": "fa",
+  "scope": "/",
+  "categories": ["education", "learning", "productivity"],
+  "icons": [
+    {
+      "src": "/icons/icon-152x152.png",
+      "sizes": "152x152",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/icon-167x167.png",
+      "sizes": "167x167",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/icon-180x180.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/screenshots/home.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide"
+    },
+    {
+      "src": "/screenshots/mobile.png",
+      "sizes": "750x1334",
+      "type": "image/png",
+      "form_factor": "narrow"
+    }
+  ],
+  "related_applications": [],
+  "prefer_related_applications": false,
+  "iarc_rating_id": "",
+  "share_target": {
+    "action": "/share",
+    "method": "POST",
+    "enctype": "multipart/form-data",
+    "params": {
+      "title": "title",
+      "text": "text",
+      "url": "url"
+    }
+  },
+  "shortcuts": [
+    {
+      "name": "دوره‌های من",
+      "short_name": "دوره‌ها",
+      "description": "مشاهده دوره‌های خریداری شده",
+      "url": "/dashboard",
+      "icons": [{ "src": "/icons/courses-96x96.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "پنل مدیریت",
+      "short_name": "مدیریت",
+      "description": "مدیریت دوره‌ها و کاربران",
+      "url": "/admin",
+      "icons": [{ "src": "/icons/admin-96x96.png", "sizes": "96x96" }]
+    }
+  ]
+}

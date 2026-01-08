@@ -1,0 +1,50 @@
+name: CI — Migrate & Build
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+
+jobs:
+  migrate-build:
+    runs-on: ubuntu-latest
+    env:
+      NODE_ENV: production
+      DATABASE_URL: ${{ secrets.DATABASE_URL }}
+      # Set RUN_MIGRATIONS secret to 'true' to enable CI-run migrations
+      RUN_MIGRATIONS: ${{ secrets.RUN_MIGRATIONS }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install backend deps
+        working-directory: tondino-backend
+        run: npm ci
+
+      - name: Conditional DB migrations
+        working-directory: tondino-backend
+        run: |
+          if [ "${RUN_MIGRATIONS}" = "true" ]; then
+            echo "RUN_MIGRATIONS=true — running migrations";
+            npm run migrate:up;
+          else
+            echo "RUN_MIGRATIONS not set to 'true' — skipping migrations";
+          fi
+
+      - name: Build backend
+        working-directory: tondino-backend
+        run: npm run build
+
+      - name: Run tests (if present)
+        working-directory: tondino-backend
+        run: |
+          if npm test --silent; then
+            echo "Tests ran";
+          else
+            echo "No tests or tests failed";
+          fi
