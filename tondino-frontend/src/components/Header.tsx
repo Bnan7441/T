@@ -98,7 +98,7 @@ const Header: React.FC = () => {
                 onClick={() => setIsAuthModalOpen(true)}
                 className="px-4 sm:px-6 py-2 text-xs sm:text-sm bg-brand-primary text-white rounded-full font-black hover:bg-brand-primary/90 transition-colors active:scale-95 min-h-[40px] sm:min-h-[44px]"
               >
-                {t('header.loginSignup')}
+                {t('header.loginRegister')}
               </button>
             )}
           </div>
